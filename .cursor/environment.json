@@ -1,0 +1,7 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "install": "export PATH=\"/usr/local/bin:$PATH\"; test \"$(node --version)\" = \"v$(cat .nvmrc)\" && npm ci && npm run build:cached && node scripts/rea.mjs mcp doctor --json && mkdir -p \"$HOME/.local/bin\" && if [ -e \"$HOME/.local/bin/rea-workbench\" ]; then cp -p \"$HOME/.local/bin/rea-workbench\" \"$HOME/.local/bin/rea-workbench.backup.$(date +%s)\"; fi && printf '#!/bin/bash\\nexec /usr/local/bin/node \"%s/scripts/rea.mjs\" \"$@\"\\n' \"$PWD\" > \"$HOME/.local/bin/rea-workbench\" && chmod +x \"$HOME/.local/bin/rea-workbench\""
+}
